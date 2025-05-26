@@ -1,5 +1,5 @@
 
-const BASE_URL = process.env.REACT_APP_BASE_URL
+const BASE_URL = 'https://chat-app-gir9.onrender.com'
 
 // auth apis 
 export const AUTH_APIS = {
