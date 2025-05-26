@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { loadMessages, sendMessage } from '../../service/Message.service'
 import { getSocket } from '../../slice/socketManager'
 import { appendMessage, setImage } from '../../slice/messageSlice'
-import ImageViewer from '../chatUser/ImageViewer'
+
 
 
 

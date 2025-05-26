@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import steps from "daisyui/components/steps";
+
 
 
 const initialState = {
