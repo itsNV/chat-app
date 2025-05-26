@@ -25,7 +25,7 @@ app.use(fileUpload({
 app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(cors({
-    origin: 'http://localhost:3000'
+    origin: 'chat-app-lake-nine-47.vercel.app'
 }))
 
 // mount the routes
