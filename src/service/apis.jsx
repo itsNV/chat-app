@@ -1,5 +1,5 @@
 
-const BASE_URL = 'http://localhost:4000/api/chat-app'
+const BASE_URL = process.env.REACT_APP_BASE_URL
 
 // auth apis 
 export const AUTH_APIS = {
