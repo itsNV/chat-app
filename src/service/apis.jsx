@@ -1,5 +1,5 @@
 
-const BASE_URL = 'https://chat-app-gir9.onrender.com'
+const BASE_URL = 'https://chat-app-gir9.onrender.com/api/chat-app'
 
 // auth apis 
 export const AUTH_APIS = {
