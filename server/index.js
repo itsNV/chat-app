@@ -33,6 +33,10 @@ app.use('/api/chat-app/auth',authRoutes)
 app.use('/api/chat-app/message',messageRoutes)
 
 
+app.get('/', (req,res) => {
+    res.send('Your server started successfully')
+})
+
 // start server
 server.listen(PORT, () => {
     console.log('Server started st port',PORT)
