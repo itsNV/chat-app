@@ -1,8 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import video from '../assets/bg-video.mp4'
-import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { signUp } from '../service/Auth.service'
 
 const SignUp = () => {
@@ -25,20 +24,19 @@ const SignUp = () => {
     }
 
   return (
-      <div className='flex items-center  w-[100%] justify-center pt-5 bg-black h-screen'>
-          
+          <div className='relative flex items-center justify-center w-screen h-screen overflow-hidden'>
+              <div className='absolute inset-0 z-0'>
+                  <video className='min-w-full min-h-full object-cover' autoPlay muted loop>
+                      <source src='https://assets.mixkit.co/videos/1963/1963-720.mp4' type="video/mp4" />
+                  </video>
+                  {/* <img src="https://img.freepik.com/free-vector/dialogue-chat-clouds-speech-bubble-icon-from-lines-triangles-particle-style-design-low-poly-technology-devices-people-communication-concept-blue-background_587448-471.jpg" alt="bg-image" className='absolute inset-0 min-w-full min-h-full object-cover opacity-50' /> */}
+              </div>
 
-          <p className='text-blue-400 absolute top-32 text-3xl shadow-blue-400 shadow-lg px-6 font-semibold text-center'>Welcome to Chat with World</p>
+              <p className='text-blue-400 absolute top-32 text-3xl shadow-blue-400 shadow-lg px-6 font-semibold text-center z-10'>Welcome to Chat with World</p>
 
-          <video className='lg:w-[105rem] md:w-[100rem] lg:flex md:flex hidden' autoPlay muted loop >
-              <source src='https://assets.mixkit.co/videos/1963/1963-720.mp4' type="video/mp4" />
-          </video>
+              <form onSubmit={handleSubmit(submitData)}
+                  className='border border-white shadow-lg shadow-white h-auto lg:w-[35%] md:w-[40%] md:p-4 sm:w-[50%] sm:p-4 w-[70%] p-4 lg:p-10 flex flex-col gap-10 rounded-lg z-10 relative items-center mt-10'>
 
-          <img src="https://img.freepik.com/free-vector/dialogue-chat-clouds-speech-bubble-icon-from-lines-triangles-particle-style-design-low-poly-technology-devices-people-communication-concept-blue-background_587448-471.jpg" alt="bg-image" className='lg:h-[96%] lg:w-[89%] md:w-[100%] h-[98%] absolute opacity-50 ' />
-          
-          <form onSubmit={handleSubmit(submitData)}
-              className='border border-white shadow-lg shadow-white h-auto   lg:w-[35%] md:w-[40%] md:p-4 sm:w-[50%] sm:p-4 w-[70%] p-4 lg:p-10 flex flex-col gap-10 rounded-lg absolute '>
-              
 
               {/* first name */}
               <label htmlFor="firstName" className='flex flex-col gap-3'>

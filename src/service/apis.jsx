@@ -1,5 +1,6 @@
 
 const BASE_URL = 'https://chat-app-gir9.onrender.com/api/chat-app'
+// const BASE_URL = 'http://localhost:4000/api/chat-app'
 
 // auth apis 
 export const AUTH_APIS = {

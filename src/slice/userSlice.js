@@ -6,6 +6,7 @@ import { store } from "..";
 const initialState = {
     user : localStorage.getItem("user") ? JSON.parse(localStorage.getItem('user')) : null,
     // user : localStorage.getItem("user") || null
+    // BASE_URL: 'http://localhost:4000',
     BASE_URL: 'https://chat-app-gir9.onrender.com',
     onlineUsers: []
    

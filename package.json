@@ -10,9 +10,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.9.0",
     "combine-reducers": "^1.0.0",
-    "concurrently": "^9.1.2",
-    
-    
+    "concurrently": "^8.2.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.56.4",
@@ -22,7 +20,6 @@
     "react-router-dom": "^7.6.0",
     "react-scripts": "5.0.1",
     "socket.io-client": "^4.8.1",
-    
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -30,8 +27,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server" : "cd server && npm run dev",
-    "dev" : "concurrently -n \"client,server\" -c \"bgBlue,bgYellow\"  \"npm start\" \"npm run server\""
+    "server": "cd server && npm run dev",
+    "dev": "concurrently -n \"client,server\" -c \"bgBlue,bgYellow\"  \"npm start\" \"npm run server\""
   },
   "eslintConfig": {
     "extends": [

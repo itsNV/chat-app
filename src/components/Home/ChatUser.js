@@ -5,6 +5,9 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { loadMessages, sendMessage } from '../../service/Message.service'
 import { getSocket } from '../../slice/socketManager'
 import { appendMessage, setImage } from '../../slice/messageSlice'
+import { IoSend } from "react-icons/io5"
+import { IoMdImages } from "react-icons/io"
+import { BsEmojiSmile } from "react-icons/bs"
 
 
 
@@ -16,7 +19,7 @@ const ChatUser = () => {
 
   
   const { receiver_id } = useParams()
-  const { chatUser,loadPrevMessages } = useSelector((state) => state.message)
+  const { chatUser, loadPrevMessages } = useSelector((state) => state.message)
   const navigate = useNavigate();
   const {token} = useSelector((state)=> state.auth)
   const {user} = useSelector((state)=> state.user)
@@ -127,149 +130,142 @@ const ChatUser = () => {
   
 
   return (
-    <div className='border h-[50rem] overflow-y-auto relative'>
-
-      {/* name header */}
-       <div 
-           className='flex flex-col gap-3 cursor-pointer fixed w-[70%] lg:w-[51%] md:w-[54%] sm:w-[57%] bg-sky-900 pt-3'
-                         >
-                                
-                                <div className='flex gap-3 items-center ml-2'>
-                                    <img src={chatUser?.profilePic} alt="profilePic" className='rounded-full w-[3rem]' />
-      
-                                <div className='flex'>
-                                    
-                                    <p>{chatUser?.firstName} {chatUser?.lastName}</p>
-                                    
-                                    {/* online or  offline */}
-                                </div>
-                                </div>
-      
-                                <div className='h-[1px] w-full bg-black'></div>
-                                
+    <div className="flex flex-col h-full bg-gray-800 bg-opacity-30 relative">
+      {/* Header - Fixed at top */}
+      <div className="sticky top-0 z-10 bg-gradient-to-r from-blue-900 to-indigo-800 shadow-md p-3">
+        <div className="flex items-center space-x-3">
+          <div className="relative">
+            <img 
+              src={chatUser?.profilePic} 
+              alt="Profile" 
+              className="w-10 h-10 rounded-full object-cover border-2 border-blue-400" 
+            />
+            <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border border-white"></span>
+          </div>
+          <div>
+            <h3 className="font-semibold text-white">{chatUser?.firstName} {chatUser?.lastName}</h3>
+            <p className="text-xs text-blue-200 opacity-80">Online</p>
+          </div>
+        </div>
       </div>
 
-      
-      {/* show message */}
-      <div className={`w-full mt-20 pb-10`}>
-
-      
-
-         {
-          loadPrevMessages?.map((message,index) => (
-            <div className='w-full flex flex-col  px-3' key={index}>
-
-              {
-                user._id === message?.senderId?._id &&
-                  <div className='flex mt-2 justify-end ' ref={messageEndRef} >
-                    {
-                       (message?.text && !message?.image) && <p className='border border-black  max-w-max bg-gradient-to-tr to-red-600 from-blue-600 rounded-full px-3'>{message?.text}</p>
-                    }
-                    {
-                      (!message?.text && message?.image) && <img src={message?.image} alt="no item" className='w-20' onClick={() => {
-                          navigate('/showImage')
-                          dispatch(setImage(message?.image))
-                        }} />
-                      
-                    
-                    }
-                    {
-                      (message?.text && message?.image) && <div className='flex flex-col items-center'>
-
-                        <img src={message?.image} alt="no item" className='w-20' onClick={() => {
-                          navigate('/showImage')
-                          dispatch(setImage(message?.image))
-                        }}/>
-
-                        <p className='border border-black  max-w-max bg-gradient-to-tr to-red-600 from-blue-600 rounded-full px-3 mt-1'>{message?.text}</p>
-
-                      </div>
-
-
-                        
-                    }
-
-
-                    
-                     
-                  </div> 
-                  
-                  
-              }
-
-            
-              { !(user._id === message?.senderId?._id) &&
-                <div className='flex mt-2 justify-start' ref={messageEndRef}>
-
-                  {
-                    (message?.text && !message?.image) && <p className='border border-black  max-w-max bg-gradient-to-tr to-green-600 from-pink-600 rounded-full px-3'>{message?.text}</p>
-                  }
-                  
-                       {
-                      (!message?.text && message?.image) && <img src={message?.image} alt="no item" className='w-20'onClick={() => {
-                          navigate('/showImage')
-                          dispatch(setImage(message?.image))
-                        }} />
-                      
-                    
-                    }
-                    {
-                      (message?.text && message?.image) && <div className='flex flex-col items-center'>
-
-                        <img src={message?.image} alt="no item" className='w-20' onClick={() => {
-                          navigate('/showImage')
-                          dispatch(setImage(message?.image))
-                        }}/>
-
-                        <p className='border border-black  max-w-max bg-gradient-to-tr to-red-600 from-blue-600 rounded-full px-3 mt-1'>{message?.text}</p>
-
-                      </div>
-
-
-                        
-                    }
-                  
-
-                 
-                  </div>
-              }
-              
-             
+      {/* Messages Container - Scrollable */}
+      <div className="flex-1 overflow-y-auto p-4 space-y-3" style={{ scrollBehavior: 'smooth' }}>
+        {previewImage && (
+          <div className="flex justify-center my-2">
+            <div className="relative inline-block">
+              <img src={previewImage} alt="Preview" className="max-w-xs rounded-lg shadow-lg" />
+              <button 
+                onClick={() => setPreviewImage(null)} 
+                className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
+              >
+                ×
+              </button>
             </div>
-          ))
-          } 
-        
-       
+          </div>
+        )}
+
+        {loadPrevMessages?.map((message, index) => (
+          <div key={index} className="w-full">
+            {user._id === message?.senderId?._id ? (
+              <div className="flex justify-end" ref={index === loadPrevMessages.length - 1 ? messageEndRef : null}>
+                <div className="max-w-[75%]">
+                  {message?.image && (
+                    <div className="mb-1 rounded-lg overflow-hidden">
+                      <img 
+                        src={message?.image} 
+                        alt="Message image" 
+                        className="max-w-full cursor-pointer hover:opacity-90 transition-opacity" 
+                        onClick={() => {
+                          navigate('/showImage')
+                          dispatch(setImage(message?.image))
+                        }} 
+                      />
+                    </div>
+                  )}
+                  {message?.text && (
+                    <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 rounded-2xl rounded-tr-sm shadow-md">
+                      {message?.text}
+                    </div>
+                  )}
+                  <div className="text-right text-xs text-gray-400 mt-1 mr-1">
+                    {new Date(message?.createdAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="flex justify-start" ref={index === loadPrevMessages.length - 1 ? messageEndRef : null}>
+                <div className="max-w-[75%]">
+                  {message?.image && (
+                    <div className="mb-1 rounded-lg overflow-hidden">
+                      <img 
+                        src={message?.image} 
+                        alt="Message image" 
+                        className="max-w-full cursor-pointer hover:opacity-90 transition-opacity" 
+                        onClick={() => {
+                          navigate('/showImage')
+                          dispatch(setImage(message?.image))
+                        }} 
+                      />
+                    </div>
+                  )}
+                  {message?.text && (
+                    <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-2xl rounded-tl-sm shadow-md">
+                      {message?.text}
+                    </div>
+                  )}
+                  <div className="text-left text-xs text-gray-400 mt-1 ml-1">
+                    {new Date(message?.createdAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
       </div>
-      
 
-      <form onSubmit={handleSubmit(sendMessages)} className='mt-4'>
-
-        <input type="text"
-          name='text'
-          id='text'
-          {...register('text')}
-          className='fixed bottom-[4.3rem] w-[70%] lg:w-[51.5%] sm:w-[57%] md:w-[54%] bg-black text-white pl-3 py-2 rounded-lg pr-20'
-          placeholder='Type here ...'
-        
-        />
-        
-
-        <input type="file" ref={inputRef}
-          onChange={selectImage}
-
-          className='hidden' />
-
-        <button type="submit" className='text-black bg-yellow-400 fixed bottom-[4.3rem] right-[2rem] w-[15%] lg:right-[20rem] md:right-[10rem] sm:right-[7rem] lg:w-[5%] mb-1 rounded-lg py-1 px-2 sm:w-[10%] max-w-max'>Send</button>
-        <button type="button"
-          onClick={()=> handleClick()}
-          className='text-white bg-red-400 fixed bottom-[4.3rem]  text-sm right-[6rem] lg:right-[28rem] md:right-[17rem] sm:right-[13rem] max-w-max bg-opacity-40 rounded-lg px-2 
-          mb-1 '>Image</button>
-      </form>
-
-    
-
-     </div>
+      {/* Message Input - Fixed at bottom */}
+      <div className="sticky bottom-0 bg-gray-900 bg-opacity-80 backdrop-blur-sm p-3 border-t border-gray-700">
+        <form onSubmit={handleSubmit(sendMessages)} className="flex items-center space-x-2">
+          <button 
+            type="button" 
+            onClick={handleClick}
+            className="p-2 text-blue-400 hover:text-blue-300 transition-colors"
+          >
+            <IoMdImages className="w-6 h-6" />
+          </button>
+          
+          <button 
+            type="button" 
+            className="p-2 text-yellow-400 hover:text-yellow-300 transition-colors"
+          >
+            <BsEmojiSmile className="w-5 h-5" />
+          </button>
+          
+          <div className="relative flex-1">
+            <input 
+              type="text"
+              {...register('text')}
+              className="w-full bg-gray-800 text-white border border-gray-700 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Type a message..."
+            />
+            <input 
+              type="file" 
+              ref={inputRef}
+              onChange={selectImage}
+              className="hidden" 
+            />
+          </div>
+          
+          <button 
+            type="submit" 
+            className="p-2 bg-blue-600 text-white rounded-full hover:bg-blue-500 transition-colors"
+          >
+            <IoSend className="w-5 h-5" />
+          </button>
+        </form>
+      </div>
+    </div>
   )
 }
 

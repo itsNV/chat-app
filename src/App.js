@@ -1,19 +1,18 @@
 
-import './App.css';
-import Navbar from './components/Navbar';
-import { Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
-import SignUp from './pages/SignUp';
-import { useDispatch, useSelector } from "react-redux"
-import Login from './pages/Login';
-import ProtectedRoute from './components/ProtectedRoute';
-import Profile from './pages/Profile';
-import ChatUser from './components/Home/ChatUser';
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { Route, Routes } from 'react-router-dom';
+import './App.css';
+import ChatUser from './components/Home/ChatUser';
+import Navbar from './components/Navbar';
+import ProtectedRoute from './components/ProtectedRoute';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Profile from './pages/Profile';
+import SignUp from './pages/SignUp';
 
-import { connectSocket, setUser } from './slice/userSlice';
-import { loadMessages } from './service/Message.service';
 import ImageViewer from './components/chatUser/ImageViewer';
+import { connectSocket, setUser } from './slice/userSlice';
 
 
 
@@ -60,7 +59,7 @@ function App() {
   }, [user])
   
   return (
-    <div className='App bg-gradient-to-tr  h-screen w-screen font-serif'>
+    <div className='App bg-gradient-to-br from-gray-900 to-blue-900 h-full w-full  font-serif'>
       
 
       

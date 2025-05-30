@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const ImageViewer = () => {
 
@@ -10,13 +10,13 @@ const ImageViewer = () => {
   const {image} = useSelector((state)=> state.message)
 
   return (
-      <div className=' w-full h-[94.3%] bg-gradient-to-tr from-blue-600 to-pink-600  flex flex-col gap-4 justify-center items-center   '>
+      <div className='fixed inset-0 bg-gradient-to-br from-gray-900 to-blue-900 bg-opacity-80 backdrop-filter backdrop-blur-lg flex flex-col items-center justify-center p-4 z-50'>
           
-          <img src={image} alt="no item" className='lg:w-[32%] md:w-[50%] sm:w-[70%] w-[90%]'/>
+          <img src={image} alt="no item" className='max-w-full max-h-[80vh] object-contain rounded-lg shadow-xl transform transition-transform duration-300 hover:scale-105'/>
 
       <button type='button'
-        className='text-black bg-yellow-500 rounded-lg px-2 py-1'
-        onClick={() => navigate(-1)}>Cancel</button>
+        className='mt-6 px-6 py-2 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75'
+        onClick={() => navigate(-1)}>Close</button>
           
     </div>
   )

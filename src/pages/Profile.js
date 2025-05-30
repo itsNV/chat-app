@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect, useRef, useState } from 'react';
 import { FaCamera } from "react-icons/fa";
 import { GrUser } from "react-icons/gr";
 import { MdEmail } from "react-icons/md";
+import { useDispatch, useSelector } from 'react-redux';
 import { updateProfile } from '../service/Auth.service';
 
 const Profile = () => {
@@ -57,56 +57,58 @@ const Profile = () => {
     
   },[])
   return (
-    <div className='w-full h-[94.3%] bg-gradient-to-br from-black to-blue-900  flex flex-col justify-center items-center'>
+    <div className='w-full h-screen bg-gradient-to-br from-gray-900 to-blue-900 flex flex-col justify-center items-center p-4 overflow-x-hidden overflow-y-auto'>
       
-      <div className='bg-gradient-to-br from-blue-800 to-slate-600 h-auto lg:w-[40%] md:w-[60%] sm:w-[80%] w-[80%] rounded-lg pb-10 pt-7'>
-        <div className='flex flex-col items-center'>
-          <p className='text-xl font-semibold'>Profile</p>
-          <p className='text-lg mt-4'>Your profile information</p>
+      <div className='bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-lg border border-gray-700 rounded-xl shadow-2xl p-8 lg:w-[40%] md:w-[60%] sm:w-[80%] w-full max-w-2xl transform transition-all duration-300 hover:scale-105'>
+        <div className='flex flex-col items-center mb-6'>
+          <p className='text-3xl font-bold text-white mb-2'>Profile</p>
+          <p className='text-lg text-gray-300'>Manage your personal information</p>
         </div>
         
         <div
           onClick={()=> handleClick()}
-          className='border rounded-full w-[10rem] shadow-md shadow-white flex mt-5 mx-auto relative'>
-          <input type="file" accept='image/*' onChange={handleFileChange} ref={inputRef} className=' hidden'/>
-          <img src={previewImage || user?.profilePic} alt="profile-pic" className='rounded-full lg:w-[10rem]' />
-          <FaCamera className='text-[2rem] absolute text-black bottom-3 right-3 bg-yellow-300 p-1 rounded-lg'/>
+          className='relative w-32 h-32 rounded-full overflow-hidden mx-auto mb-6 cursor-pointer group ring-4 ring-blue-500 ring-offset-4 ring-offset-gray-800 transition-all duration-300 hover:ring-blue-400'>
+          <input type="file" accept='image/*' onChange={handleFileChange} ref={inputRef} className='hidden'/>
+          <img src={previewImage || user?.profilePic} alt="profile-pic" className='w-full h-full object-cover transition-transform duration-300 group-hover:scale-110'/>
+          <div className='absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
+            <FaCamera className='text-white text-3xl'/>
+          </div>
         </div>
 
-        <p className='text-center mt-4'>Click to change your profile picture</p>
+        <p className='text-center text-gray-400 mb-8'>Click to change your profile picture</p>
 
 
 
-        <div className='px-5 flex flex-col gap-8'>
+        <div className='px-5 flex flex-col gap-6'>
           <div>
-            <p className='flex items-center gap-2'> <GrUser/> FullName</p>
-          <div className='w-full h-10 border rounded-lg mt-2 flex items-center px-3'>{user?.firstName} {user?.lastName}</div>
+            <p className='flex items-center gap-3 text-gray-300 text-lg mb-1'> <GrUser className='text-blue-400'/> FullName</p>
+            <div className='w-full p-3 bg-gray-700 rounded-lg text-white text-base font-medium shadow-inner border border-gray-600'>{user?.firstName} {user?.lastName}</div>
           </div>
           
-        <div>
-            <p className='flex items-center gap-2'> <MdEmail/> Email</p>
-          <div className='w-full h-10 border rounded-lg mt-2 flex items-center px-3'>{user?.email} </div>
+          <div>
+            <p className='flex items-center gap-3 text-gray-300 text-lg mb-1'> <MdEmail className='text-blue-400'/> Email</p>
+            <div className='w-full p-3 bg-gray-700 rounded-lg text-white text-base font-medium shadow-inner border border-gray-600'>{user?.email} </div>
           </div>
         </div>
 
         <button
           onClick={()=> fileUpload()}
-          className='text-black bg-yellow-500 px-6 py-1 rounded-lg mx-auto flex mt-5 hover:scale-110 transition-all duration-200 hover:rounded-full'>Save</button>
+          className='bg-blue-600 text-white px-8 py-3 rounded-full mx-auto flex mt-8 shadow-lg shadow-blue-500/50 hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75'>Save Profile</button>
       </div>
 
 
-      <div className='bg-gradient-to-br from-blue-800 to-slate-600 h-auto lg:w-[40%] md:w-[60%] sm:w-[80%] w-[80%] px-1 rounded-lg pb-10 pt-7 mt-10'>
-        <p className='text-center lg:mb-5 font-bold text-xl'>Account Information</p>
+      <div className='bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-lg border border-gray-700 rounded-xl shadow-2xl p-8 lg:w-[40%] md:w-[60%] sm:w-[80%] w-full max-w-2xl mt-8 transform transition-all duration-300 hover:scale-105'>
+        <p className='text-center text-2xl font-bold text-white mb-6'>Account Information</p>
 
-        <div className='flex items-center justify-between lg:px-5'>
-          <p>Member Since</p>
-          <p>{ user?.createdAt}</p>
+        <div className='flex items-center justify-between px-5 py-3 bg-gray-700 rounded-lg mb-4 shadow-inner border border-gray-600'>
+          <p className='text-gray-300 text-lg'>Member Since</p>
+          <p className='text-white text-lg font-medium truncate'>{ user?.createdAt}</p>
         </div>
 
 
-        <div className='flex items-center justify-between lg:px-5 mt-7'>
-          <p>Account Status</p>
-          <p className='text-green-400'>Active</p>
+        <div className='flex items-center justify-between px-5 py-3 bg-gray-700 rounded-lg shadow-inner border border-gray-600'>
+          <p className='text-gray-300 text-lg'>Account Status</p>
+          <p className='text-green-400 text-lg font-medium truncate'>Active</p>
         </div>
       </div>
 
